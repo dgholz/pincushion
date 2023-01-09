@@ -1,0 +1,20 @@
+name: Check how timestamps are read from job env
+
+on: push
+
+jobs:
+  compare-timestamp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: See if timestamp in environment differs from config
+        env:
+          MY_TEST_TIMESTAMP: "2001-02-03T04:05:06-0700"
+        run: |
+          echo "timestamp from shell: $MY_TEST_TIMESTAMP"
+          echo "timestamp from context: ${{ env.MY_TEST_TIMESTAMP }}"
+          if [ "2001-02-03T04:05:06-0700" != "$MY_TEST_TIMESTAMP" ]
+          then
+            echo 'timestamp differed from expected!' >&2
+            exit 1
+          fi
+          echo 'all fine'
