@@ -1,0 +1,19 @@
+name: Release
+
+on:
+  - push
+
+jobs:
+  release-prerelease:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ncipollo/release-action@v1.12.0
+        with:
+          tag:  ${{ github.ref_name }}-rc
+          commit: ${{ github.sha }}
+          generateReleaseNotes: true
+          makeLatest: false
+          omitDraftDuringUpdate: true
+          prerelease: true
+          allowUpdates: true
+          updateOnlyUnreleased: true
