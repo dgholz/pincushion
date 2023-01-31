@@ -9,14 +9,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
-          git push origin ${{ github.ref_name }}:refs/tags/${{ github.ref_name }}-rc --force
+          git push origin :refs/tags/${{ github.ref_name }}-rc --force
       - uses: ncipollo/release-action@v1.12.0
         with:
           tag:  ${{ github.ref_name }}-rc
           commit: ${{ github.sha }}
           generateReleaseNotes: true
           makeLatest: false
-          omitDraftDuringUpdate: true
+          draft: false
           prerelease: true
           allowUpdates: true
           updateOnlyUnreleased: true
